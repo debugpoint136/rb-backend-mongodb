@@ -41,9 +41,14 @@ var userSchema = new Schema ({
 	last_modified_date: Date
 })
 
+var geo2trackSchema = new Schema ({
+	name: String,
+	geo: String
+})
 
 var geo2info = dbConnection.model('GEO2INFO', geo2infoSchema, 'geo2info')
 var User = dbConnection.model('User', userSchema, 'users')
+var geo2track = dbConnection.model('GEO', geo2trackSchema, 'geo2track')
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -112,7 +117,7 @@ app.post('/batchinsert', function (req, res, next) {
 		]
 		*/
 	
-    User.collection.insert(req.body);
+    geo2track.collection.insert(req.body);
 
     res.json({'jobStatus': 'MongoDB Refresh Complete - It\'s All Good!'});
 });
